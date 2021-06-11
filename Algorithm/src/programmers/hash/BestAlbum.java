@@ -45,7 +45,7 @@ public class BestAlbum {
         
         /* 2021-06-07 Map안에 Map 사용 */
         Map<String, Map<Integer, Integer>> map = new HashMap<String, Map<Integer,Integer>>(); // 장르별 Map<고유번호, 플레이수>
-        Map<String, Integer> totalPlayMap = new HashMap<String, Integer>(); // 장르별 플레이수 총합
+        Map<String, Integer> totalPlayMap = new HashMap<>(); // 장르별 플레이수 총합
         
         // 데이터 적재
         for(int i=0; i<genres.length; i++) {
@@ -59,6 +59,23 @@ public class BestAlbum {
         	totalPlayMap.put(genres[i], totalPlayMap.getOrDefault(genres[i], 0)+plays[i]);
         }
         
+        /* 2021-06-11 Map 정렬 람다식으로 변경 */
+        /*
+        List<Integer> answerList = new ArrayList<Integer>();
+        
+        totalPlayMap.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+        .forEach(x -> {
+        	String tempKey = x.getKey();
+        	Map<Integer, Integer> tempMap = map.get(tempKey);
+        	
+        	tempMap.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(2)
+        	.forEach(y -> {
+        		answerList.add(y.getKey());
+        	});
+        });
+        */
+        
+        /* 2021-06-09 */
         // 총 플레이수가 높은 순서대로 장르 정렬
         List<String> keySetList = new ArrayList<String>(totalPlayMap.keySet());
         // 내림차순 정렬
@@ -69,7 +86,7 @@ public class BestAlbum {
             }
         });
         
-        int i=0;
+        
         List<Integer> answerList = new ArrayList<Integer>();
         
         // 우선순위 장르별 상위 플레이수 정렬 및 상위 2개 추출 
@@ -85,9 +102,8 @@ public class BestAlbum {
         	
         	int j=0;
         	for(Integer itg : playKeyList) {
-        		answerList.add(i++, itg);
-        		j++;
-        		if(j>=2) break;
+        		answerList.add(itg);
+        		if(++j>=2) break;
         	}
         }
         
