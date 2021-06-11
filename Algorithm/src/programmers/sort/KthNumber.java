@@ -27,15 +27,36 @@
  */
 package programmers.sort;
 
+import java.util.*;
+
 public class KthNumber {
     public int[] solution(int[] array, int[][] commands) {
-        int[] answer = {};
+        int[] answer = new int[commands.length];
+        
+        for(int i = 0; i < commands.length; i++) {
+        	answer[i] = getKthNumber(array, commands[i]);
+        }
+        
         return answer;
+    }
+    
+    public int getKthNumber(int[] array, int[] command) {
+        /* 01. 자르기 */
+        int[] subArray = Arrays.copyOfRange(array, command[0]-1, command[1]);
+        
+        /* 02. 정렬 */
+        Arrays.sort(subArray);
+        
+        /* 03. 결과 */
+        return subArray[command[2]-1];
     }
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		int[] array = {1, 5, 2, 6, 3, 7, 4};
+		int[][] commands = {{2, 5, 3}, {4, 4, 1}, {1, 7, 3}};
+		
+		KthNumber kthNumber = new KthNumber();
+		System.out.println(kthNumber.solution(array, commands));
 	}
 
 }
