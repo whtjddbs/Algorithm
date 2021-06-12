@@ -19,6 +19,7 @@
 package programmers.sort;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class BiggestNumber {
 	public String solution(int[] numbers) {
@@ -30,29 +31,12 @@ public class BiggestNumber {
         	strNumbers[i] = numbers[i]+"";
         }
         
-        String temp = "";
-        for(int i = 0; i < strNumbers.length-1; i++) {
-        	for(int j=i+1; j<strNumbers.length; j++) {
-        		
-        		if(strNumbers[j].startsWith(strNumbers[i])) {
-        			if(!strNumbers[i].equals(strNumbers[j]) && strNumbers[i].charAt(0) < strNumbers[j].charAt(strNumbers[i].length())) {
-        				temp = strNumbers[i];
-            			strNumbers[i] = strNumbers[j];
-            			strNumbers[j] = temp;
-        			}
-        		} else if(strNumbers[i].startsWith(strNumbers[j])) {
-        			temp = strNumbers[i];
-        			strNumbers[i] = strNumbers[j];
-        			strNumbers[j] = temp;
-        		} else if (strNumbers[j].compareTo(strNumbers[i]) > 0) {
-        			temp = strNumbers[i];
-        			strNumbers[i] = strNumbers[j];
-        			strNumbers[j] = temp;
-        		}
+        Arrays.sort(strNumbers, new Comparator<String>() {
+        	@Override
+        	public int compare(String o1, String o2) {
+        		return (o1+o2).compareTo(o2+o1)*-1;
         	}
-        }
-        
-        System.out.println(Arrays.asList(strNumbers));
+        });
         
         for(String str : strNumbers) {
         	answer += str;
@@ -65,8 +49,8 @@ public class BiggestNumber {
     }
 	
 	public static void main(String[] args) {
-		//int[] numbers = {3, 30, 34, 5, 9};
-		int[] numbers = {0, 0, 0};
+		int[] numbers = {3, 30, 34, 5, 9};
+//		int[] numbers = {0, 0, 0};
 		
 		BiggestNumber bn = new BiggestNumber();
 		System.out.println(bn.solution(numbers));
