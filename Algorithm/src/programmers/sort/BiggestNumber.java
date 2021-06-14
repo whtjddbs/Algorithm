@@ -34,6 +34,8 @@ public class BiggestNumber {
         Arrays.sort(strNumbers, new Comparator<String>() {
         	@Override
         	public int compare(String o1, String o2) {
+        		//return 값이 양수이면 두 객체의 자리를 변경
+        		// x.compareTo(y) : y > x 이면 음수, x == y 이면 0, x > y 이면 양수  
         		return (o1+o2).compareTo(o2+o1)*-1;
         	}
         });
