@@ -32,9 +32,14 @@
  */
 package programmers.queue;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class Printer {
 	public int solution(int[] priorities, int location) {
         int answer = 0;
+        
+        
         
         return answer;
     }
